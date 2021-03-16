@@ -1,4 +1,4 @@
-# Use Python to run this
+#!/usr/bin/env python
 
 from os import listdir
 
