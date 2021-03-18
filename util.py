@@ -1,38 +1,64 @@
 #!/usr/bin/env python
 
-from os import listdir
+import argparse
 
-def ls():
-    print(listdir('.'))
-def run_my_analysis(option, data):
-    """Run my analysis."""
+
+def is_even(n: int) -> bool:
+    """Indicates whether an integer is even.
+
+    Parameters
+    ----------
+    n: int
+        The integer to check for evenness
+
+    Returns
+    -------
+    Whether the integer is even
+    """
+    return (n % 2) == 0
+
+def print_evens_odds(data: str) -> None:
+    """Prints whether each number in data is even or odd
+
+    Parameters
+    ----------
+    data: str
+        The filename for the data to be read. The file should have
+        space-delimited integers.
+
+    Returns
+    -------
+    None
+
+    Notes
+    -----
+    This is confusing; consider rewriting
+
+    See Also
+    --------
+    Nothing
+    """
     print('Reading data')
-    with open('/Users/tevesjb/repositories/code-review-practice-1/data.txt', 'r') as f:
-        data = f.read()
+    with open(data, 'r') as f:
+        contents = f.read()
     print('Read the data')
-    nums = []
-    numbers = data.split()
-    for n in numbers:
-        nums.append(int(n))
+    entries = contents.split()
     print('Checking data...')
-    for n in nums:
-        if option == 'False':
-            if (n / 2) == 0:
-                print('%d: True' % n)
-            else:
-                print('%d: False' % n)
+    for entry in entries:
+        n = int(entry)
+        if is_even(n):
+            print('%d: even' % n)
         else:
-            # Checking to see if even
-            if (n/2) == 0:
-                print('%d: False' % n)
-            else:
-                print('%d: True'%n)
-    print('Finished aanalysing data!')
-
-
+            print('%d: odd' % n)
+    print('Finished analysing data!')
 
 
 def main():
-    run_my_analysis('True', '/Users/tevesjb/repositories/code-review-practice-1')
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--input', help='Path to data')
+    args = parser.parse_args()
+    print_evens_odds(args.input)
+
+
 if __name__ == '__main__':
     main()
